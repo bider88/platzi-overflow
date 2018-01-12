@@ -1,0 +1,36 @@
+<div *ngIf="loading">
+    <br>
+    <mat-progress-spinner color="primary" mode="indeterminate" diameter="50"></mat-progress-spinner>
+</div>
+<div *ngIf="!loading">
+  <mat-card>
+    <mat-card-header>
+        <div mat-card-avatar class="{{question.icon}} icon"></div>
+        <mat-card-title>
+          <h3>{{question.title}}</h3>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <small>{{question.user.firstName}} {{question.user.lastName}} - {{question.createdAt | amLocale:'es' | amTimeAgo}}</small>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      {{question.description}}
+    </mat-card-content>
+  </mat-card>
+  <div class="answer">
+    <h3>Respuestas</h3>
+    <ul class="answer-list" *ngIf="question.answers.length > 0">
+      <li *ngFor="let answer of question.answers">
+        <h4>
+          {{answer.user.firstName}} {{answer.user.lastName}}
+          <small>{{answer.createdAt | amLocale:'es' | amTimeAgo}}</small>
+        </h4>
+        <p class="description">
+          {{answer.description}}
+        </p>
+      </li>
+    </ul>
+    <p *ngIf="question.answers.length === 0">Sé el primero en responder esta pregunta</p>
+    <app-answer-form [question]="question" class="answer-form"></app-answer-form>
+  </div>
+</div>

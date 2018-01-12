@@ -1,3 +1,4 @@
+import { AuthService } from './signin-screen/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor(
+    private authService: AuthService
+  ) {
+
+  }
+
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
+
+  getFirstName() {
+    return this.authService.currentUser.firstName;
+  }
+
+  logout() {
+    this.authService.logout();
+  }
 }
